@@ -7,6 +7,10 @@
 //                                                                            //
 // ************************************************************************** //
 
+#include <iostream>
+#include <ctime>
+#include <iomanip>
+#include <sstream>
 
 #pragma once
 #ifndef __ACCOUNT_H__
@@ -44,11 +48,6 @@ class Account
 		void	displayStatus( void ) const;
 		~Account( void );
 };
-
-// int Account::_nbAccounts = 0;
-// int Account::_totalAmount = 0;
-// int Account::_totalNbDeposits = 0;
-// int Account::_totalNbWithdrawals = 0;
 
 // ************************************************************************** //
 // vim: set ts=4 sw=4 tw=80 noexpandtab:                                      //
