@@ -1,8 +1,8 @@
-SRC = megaphone.cpp
+SRC = Main.cpp PhoneBook.cpp Contact.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
-NAME = megaphone
+NAME = MyAwesome
 
 CXX = c++
 

@@ -1,8 +1,8 @@
-SRC = megaphone.cpp
+SRC = tests.cpp Account.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
-NAME = megaphone
+NAME = TheJobOfYour
 
 CXX = c++
 
