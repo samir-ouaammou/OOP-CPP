@@ -48,8 +48,10 @@ void    Add(std::string &str, std::string msg, int nbr)
     {
         std::cout << msg;
         std::getline(std::cin, str);
+        if (str.empty())
+            exit(0);
         if (!CheckString(str, nbr))
-        continue;
+            continue;
         else
             break; ;
     }
@@ -67,6 +69,8 @@ int main(void)
     {
         std::cout << "Please enter a command. (ADD, SEARCH OR EXIT): ";
         std::getline(std::cin, Input);
+        if (Input.empty())
+            exit(0);
         if (Input == "ADD")
         {
             Add(FirstName, "Enter first name: ", 1);
@@ -97,6 +101,8 @@ int main(void)
             std::cout << "*********************************************" << std::endl;
             std::cout << "Please select an index : ";
             std::getline(std::cin, Input);
+            if (Input.empty())
+                exit(0);
             if (!CheckString(Input, 0))
             {
                 std::cout << "Error: Invalid index value." << std::endl;
