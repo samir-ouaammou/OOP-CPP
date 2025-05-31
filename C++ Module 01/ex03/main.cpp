@@ -9,15 +9,15 @@ int main()
         Weapon club = Weapon("\'HumanA aaa\'");
         HumanA bob("Bob", club);
         bob.attack();
-        club.setType("\'HumanA bbb\'");
+        club.setType("\'HumanA aaa\'");
         bob.attack();
     }
     {
-        Weapon club = Weapon("\'HumanB aaa\'");
+        Weapon club = Weapon("\'HumanB bbb\'");
         HumanB jim("Jim");
         jim.setWeapon(club);
         jim.attack();
-        club.setType("\'HumanB aaa\'");
+        club.setType("\'HumanB bbb\'");
         jim.attack();
     }
     return 0;

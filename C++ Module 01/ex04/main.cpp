@@ -1,32 +1,60 @@
-# include <iostream>
-# include <fstream>
-# include <string>
+#include <iostream>
+#include <fstream>
+#include <string>
 
-int main(int ac, char **av)
+int main(int argc, char **argv)
 {
-    std::string    filename;
-    std::string    s1;
-    std::string    s2;
+    if (argc != 4)
+    {
+        std::cerr << "Usage: ./replace <filename> <s1> <s2>" << std::endl;
+        return (1);
+    }
 
-    if (ac != 4)
-    {
-        std::cout << "Error: invalid number of arguments." << std::endl;
-        std::cout << "Usage: ./program_name <filename> <string_to_replace> <replacement_string>" << std::endl;
-        return (1);
-    }
-    filename = av[1];
-    s1 = av[2];
-    s2 = av[3];
-    std::fstream inputFile(filename.c_str());
-    if (!inputFile.is_open())
-    {
-        std::cout << "Error: could not open input file." << std::endl;
-        return (1);
-    }
+    std::string filename = argv[1];
+    std::string s1 = argv[2];
+    std::string s2 = argv[3];
+
     if (s1.empty())
     {
-        std::cout << "Error: string to replace (s1) cannot be empty." << std::endl;
+        std::cerr << "Error: s1 must not be empty." << std::endl;
         return (1);
     }
+
+    std::ifstream inputFile(filename.c_str());
+    if (!inputFile)
+    {
+        std::cerr << "Error: Cannot open input file." << std::endl;
+        return (1);
+    }
+
+    std::ofstream outputFile((filename + ".replace").c_str());
+    if (!outputFile)
+    {
+        std::cerr << "Error: Cannot create output file." << std::endl;
+        inputFile.close();
+        return (1);
+    }
+
+    std::string line;
+    while (std::getline(inputFile, line))
+    {
+        std::string result;
+        size_t pos = 0;
+        size_t found;
+
+        while ((found = line.find(s1, pos)) != std::string::npos)
+        {
+            result += line.substr(pos, found - pos);
+            result += s2;
+            pos = found + s1.length();
+        }
+        result += line.substr(pos);
+
+        outputFile << result << std::endl;
+    }
+
+    inputFile.close();
+    outputFile.close();
+
     return (0);
 }

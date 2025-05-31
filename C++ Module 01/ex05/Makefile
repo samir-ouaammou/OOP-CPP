@@ -1,8 +1,8 @@
-SRC = main.cpp  newZombie.cpp  randomChump.cpp  Zombie.cpp  zombieHorde.cpp
+SRC = Harl.cpp  main.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
-NAME = MoarBrainz
+NAME = Harl
 
 CXX = c++
 
