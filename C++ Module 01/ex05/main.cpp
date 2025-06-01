@@ -4,7 +4,7 @@ int main()
 {
     Harl harl;
 
-    harl.complain(NULL);
+    harl.complain("DEBUG");
 
     return (0);
 }
