@@ -6,11 +6,11 @@ int main(int argc, char **argv)
 {
     if (argc != 4)
     {
-        std::cerr << "Usage: ./replace <filename> <s1> <s2>" << std::endl;
+        std::cerr << "Usage: ./ProgramName <FileName> <String1> <String2>" << std::endl;
         return (1);
     }
 
-    std::string filename = argv[1];
+    std::string FileName = argv[1];
     std::string s1 = argv[2];
     std::string s2 = argv[3];
 
@@ -20,14 +20,14 @@ int main(int argc, char **argv)
         return (1);
     }
 
-    std::ifstream inputFile(filename.c_str());
+    std::ifstream inputFile(FileName.c_str());
     if (!inputFile)
     {
         std::cerr << "Error: Cannot open input file." << std::endl;
         return (1);
     }
 
-    std::ofstream outputFile((filename + ".replace").c_str());
+    std::ofstream outputFile((FileName + ".replace").c_str());
     if (!outputFile)
     {
         std::cerr << "Error: Cannot create output file." << std::endl;

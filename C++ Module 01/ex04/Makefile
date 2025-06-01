@@ -2,6 +2,8 @@ SRC = main.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
+TMPFILE = *.replace
+
 NAME = SedIsForLosers
 
 CXX = c++
@@ -22,3 +24,6 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+replace:
+	$(RM) $(TMPFILE)

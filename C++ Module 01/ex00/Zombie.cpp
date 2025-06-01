@@ -4,8 +4,9 @@ Zombie::Zombie()
 {
 }
 
-Zombie::Zombie(std::string name) : _name(name)
+Zombie::Zombie(std::string name)
 {
+    _name = name;
 }
 
 std::string Zombie::getName(void)
