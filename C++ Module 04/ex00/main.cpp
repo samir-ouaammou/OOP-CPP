@@ -4,38 +4,45 @@
 #include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
 
-int main() {
-    std::cout << ">>> Test 1: Real polymorphism with virtual\n";
-    const Animal* meta = new Animal(); // optional, if Animal not abstract yet
-    const Animal* j = new Dog();
-    const Animal* i = new Cat();
+int main()
+{
+    std::cout << ">>> Test 1: Animal hierarchy with virtual functions\n" << std::endl;
 
-    std::cout << j->getType() << " => ";
-    j->makeSound(); // should print "Woof!"
-    
-    std::cout << i->getType() << " => ";
-    i->makeSound(); // should print "Meow!"
+    const Animal* animal = new Animal();
+    const Animal* dog = new Dog();
+    const Animal* cat = new Cat();
 
-    std::cout << "meta (Animal) => ";
-    meta->makeSound(); // should print generic Animal sound
+    std::cout << "\n>>> Animal types\n" << std::endl;
+    std::cout << "Animal type: " << animal->getType() << std::endl;
+    std::cout << "Dog type: " << dog->getType() << std::endl;
+    std::cout << "Cat type: " << cat->getType() << std::endl;
 
-    delete meta;
-    delete j;
-    delete i;
+    std::cout << "\n>>> Animal sounds\n" << std::endl;
+    animal->makeSound();  // Generic
+    dog->makeSound();     // Dog sound
+    cat->makeSound();     // Cat sound
 
-    std::cout << "\n>>> Test 2: WrongAnimal without virtual\n";
+    std::cout << "\n>>> Deleting animals\n" << std::endl;
+    delete animal;
+    delete dog;
+    delete cat;
 
-    const WrongAnimal* wrongAnimal = new WrongAnimal();
-    const WrongAnimal* wrongCat = new WrongCat();
+    std::cout << "\n>>> Test 2: WrongAnimal without virtual\n" << std::endl;
 
-    std::cout << wrongAnimal->getType() << " => ";
-    wrongAnimal->makeSound(); // should print "WrongAnimal sound"
+    const WrongAnimal* wronganimal = new WrongAnimal();
+    const WrongAnimal* wrongcat = new WrongCat();
 
-    std::cout << wrongCat->getType() << " => ";
-    wrongCat->makeSound(); // ❌ will print "WrongAnimal sound" (wrong!)
+    std::cout << "\n>>> WrongAnimal types\n" << std::endl;
+    std::cout << "WrongAnimal type: " << wronganimal->getType() << std::endl;
+    std::cout << "WrongCat type: " << wrongcat->getType() << std::endl;
 
-    delete wrongAnimal;
-    delete wrongCat;
+    std::cout << "\n>>> WrongAnimal sounds\n" << std::endl;
+    wronganimal->makeSound();  // Generic wrong sound
+    wrongcat->makeSound();     // Still wrong sound (no polymorphism)
 
-    return 0;
+    std::cout << "\n>>> Deleting wrong animals\n" << std::endl;
+    delete wronganimal;
+    delete wrongcat;
+
+    return (0);
 }
