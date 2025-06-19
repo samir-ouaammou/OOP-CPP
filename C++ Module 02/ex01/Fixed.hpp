@@ -24,6 +24,6 @@ class Fixed
         float   toFloat(void) const;
 };
 
-std::ostream    &operator<<(std::ostream &os, const Fixed &fixed);
+std::ostream    &operator<<(std::ostream &cout, const Fixed &fixed);
 
 #endif

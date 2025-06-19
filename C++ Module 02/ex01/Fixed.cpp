@@ -21,7 +21,7 @@ Fixed::Fixed(const float nbr)
 Fixed::Fixed(const Fixed& other)
 {
     std::cout << "Copy constructor called" << std::endl;
-    _value = other._value;
+    _value = other.getRawBits();
 }
 
 Fixed& Fixed::operator=(const Fixed& other)
@@ -29,7 +29,7 @@ Fixed& Fixed::operator=(const Fixed& other)
     std::cout << "Copy assignment operator called" << std::endl;
 
     if (this != &other)
-        _value = other._value;
+        _value = other.getRawBits();
 
     return (*this);
 }
@@ -61,8 +61,8 @@ float Fixed::toFloat(void) const
     return (static_cast<float>(_value) / (1 << _fractionalBits));
 }
 
-std::ostream    &operator<<(std::ostream &os, const Fixed &fixed)
+std::ostream    &operator<<(std::ostream &cout, const Fixed &fixed)
 {
-    os << fixed.toFloat();
-    return (os);
+    cout << fixed.toFloat();
+    return (cout);
 }
