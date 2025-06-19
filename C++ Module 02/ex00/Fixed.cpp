@@ -2,14 +2,14 @@
 
 Fixed::Fixed()
 {
-    _value = 0;
     std::cout << "Default constructor called" << std::endl;
+    _value = 0;
 }
 
 Fixed::Fixed(const Fixed& other)
 {
-    _value = other.getRawBits();
     std::cout << "Copy constructor called" << std::endl;
+    _value = other.getRawBits();
 }
 
 Fixed& Fixed::operator=(const Fixed& other)
