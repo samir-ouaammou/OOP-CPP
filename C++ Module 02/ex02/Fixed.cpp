@@ -24,7 +24,6 @@ Fixed::Fixed(const Fixed& other)
 
 Fixed& Fixed::operator=(const Fixed& other)
 {
-
     if (this != &other)
         _value = other.getRawBits();
 
@@ -108,6 +107,11 @@ Fixed   Fixed::operator*(const Fixed &other) const
 
 Fixed   Fixed::operator/(const Fixed &other) const
 {
+    if (other.toFloat() == 0)
+    {
+        std::cout << "Error: division by zero is undefined" << std::endl;
+        exit (-1) ;
+    }
     return (this->toFloat() / other.toFloat());
 }
 
