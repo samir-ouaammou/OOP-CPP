@@ -21,7 +21,7 @@ Fixed::Fixed(const float nbr)
 Fixed::Fixed(const Fixed& other)
 {
     std::cout << "Copy constructor called" << std::endl;
-    _value = other.getRawBits();
+    _value = other._value;
 }
 
 Fixed& Fixed::operator=(const Fixed& other)
@@ -29,7 +29,7 @@ Fixed& Fixed::operator=(const Fixed& other)
     std::cout << "Copy assignment operator called" << std::endl;
 
     if (this != &other)
-        _value = other.getRawBits();
+        _value = other._value;
 
     return (*this);
 }
@@ -47,8 +47,8 @@ int Fixed::getRawBits(void) const
 
 void Fixed::setRawBits(int const raw)
 {
-    _value = raw;
     std::cout << "setRawBits member function called" << std::endl;
+    _value = raw;
 }
 
 int Fixed::toInt(void) const
