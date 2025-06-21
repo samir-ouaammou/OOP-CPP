@@ -1,30 +1,27 @@
+#include "ClapTrap.hpp"
 #include "ScavTrap.hpp"
 
 int main()
 {
-    std::cout << "Creating ScavTrap...\n";
-    ScavTrap scav("Guardian");
+    std::cout << "----- Creating ClapTrap -----" << std::endl;
+    ClapTrap clap("Clappy");
 
-    std::cout << "\nTesting attack:\n";
-    scav.attack("Intruder");
+    std::cout << "\n----- Creating ScavTrap -----" << std::endl;
+    ScavTrap scav("Scavvy");
 
-    std::cout << "\nTesting takeDamage:\n";
+    std::cout << "\n----- Testing attack() -----" << std::endl;
+    clap.attack("target1");
+    scav.attack("target2");
+
+    std::cout << "\n----- Testing takeDamage() -----" << std::endl;
     scav.takeDamage(30);
 
-    std::cout << "\nTesting beRepaired:\n";
+    std::cout << "\n----- Testing beRepaired() -----" << std::endl;
     scav.beRepaired(20);
 
-    std::cout << "\nTesting guardGate:\n";
+    std::cout << "\n----- Testing ScavTrap special ability -----" << std::endl;
     scav.guardGate();
 
-    std::cout << "\nDraining energy:\n";
-    for (int i = 0; i < 51; ++i) {
-        scav.attack("Dummy");
-    }
-
-    std::cout << "\nTesting after energy drained:\n";
-    scav.beRepaired(10);
-
-    std::cout << "\nEnd of main.\n";
+    std::cout << "\n----- End of main, destructors will be called -----" << std::endl;
     return 0;
 }

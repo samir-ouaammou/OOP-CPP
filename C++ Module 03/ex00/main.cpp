@@ -16,7 +16,7 @@ int main()
 
     std::cout << std::endl;
 
-    for (int i = 0; i < 11; ++i)
+    for (int i = 1; i < 10; ++i)
         a.attack("RobotB"); 
 
     std::cout << std::endl;
