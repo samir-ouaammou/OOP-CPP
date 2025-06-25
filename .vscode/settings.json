@@ -58,6 +58,9 @@
         "text_encoding": "cpp",
         "cinttypes": "cpp",
         "variant": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "list": "cpp",
+        "set": "cpp",
+        "expected": "cpp"
     }
 }
