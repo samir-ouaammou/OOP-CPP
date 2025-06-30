@@ -3,14 +3,12 @@
 
 MateriaSource::MateriaSource()
 {
-    // std::cout << "MateriaSource constructor called" << std::endl;
     for (int i = 0; i < 4; i++)
         _materias[i] = NULL;
 }
 
 MateriaSource::MateriaSource(MateriaSource const &copy)
 {
-    // std::cout << "MateriaSource copy constructor called" << std::endl;
     for (int i = 0; i < 4; i++)
     {
         if (copy._materias[i])
@@ -22,7 +20,6 @@ MateriaSource::MateriaSource(MateriaSource const &copy)
 
 MateriaSource &MateriaSource::operator=(MateriaSource const &src)
 {
-    // std::cout << "MateriaSource copy assignment operator called" << std::endl;
 
     if (this != &src)
     {
@@ -43,7 +40,6 @@ MateriaSource &MateriaSource::operator=(MateriaSource const &src)
 
 MateriaSource::~MateriaSource()
 {
-    // std::cout << "MateriaSource destructor called" << std::endl;
 
     for (int i = 0; i < 4; i++)
     {
@@ -65,12 +61,10 @@ void MateriaSource::learnMateria(AMateria* m)
         if (!_materias[i])
         {
             _materias[i] = m;
-            // std::cout << "Learned new materia in slot " << i << std::endl;
-            return;
+            return ;
         }
     }
 
-    // std::cout << "MateriaSource is full! Cannot learn more materias." << std::endl;
 }
 
 AMateria* MateriaSource::createMateria(std::string const &type)
@@ -79,11 +73,9 @@ AMateria* MateriaSource::createMateria(std::string const &type)
     {
         if (_materias[i] && _materias[i]->getType() == type)
         {
-            // std::cout << "Created a copy of materia: " << type << std::endl;
-            return _materias[i]->clone();
+            return (_materias[i]->clone());
         }
     }
 
-    // std::cout << "Materia of type '" << type << "' not found!" << std::endl;
-    return NULL;
+    return (NULL);
 }

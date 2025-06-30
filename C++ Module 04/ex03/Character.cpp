@@ -3,8 +3,6 @@
 
 Character::Character(std::string const &name)
 {
-    // std::cout << "Character constructor called" << std::endl;
-
     _name = name;
     _tmpIndex = 0;
 
@@ -17,8 +15,6 @@ Character::Character(std::string const &name)
 
 Character::Character(Character const &copy)
 {
-    // std::cout << "Character Copy constructor called" << std::endl;
-
     _name = copy._name;
     _tmpIndex = 0;
 
@@ -36,8 +32,6 @@ Character::Character(Character const &copy)
 
 Character &Character::operator=(Character const &src)
 {
-    // std::cout << "Character Copy assignment operator called" << std::endl;
-
     if (this != &src)
     {
         _name = src._name;
@@ -66,8 +60,6 @@ Character &Character::operator=(Character const &src)
 
 Character::~Character()
 {
-    // std::cout << "Character Destructor called" << std::endl;
-
     for (int i = 0; i < 4; i++)
     {
         if (_inventory[i])
