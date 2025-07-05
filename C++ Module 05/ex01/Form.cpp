@@ -12,7 +12,7 @@ Form::Form(const Form &copy) : _name(copy._name), _isSigned(copy._isSigned), _gr
 {
 }
 
-Form &Form::operator=(const Form &src)
+Form    &Form::operator=(const Form &src)
 {
     if (this != &src)
         _isSigned = src._isSigned;
@@ -45,7 +45,7 @@ int     Form::getGradeToExecute() const
 }
 
 
-void Form::beSigned(const Bureaucrat &b)
+void    Form::beSigned(const Bureaucrat &b)
 {
     if (b.getGrade() > _gradeToSign)
         throw GradeTooLowException();
@@ -53,12 +53,12 @@ void Form::beSigned(const Bureaucrat &b)
     _isSigned = true;
 }
 
-const char* Form::GradeTooHighException::what() const throw()
+const char  *Form::GradeTooHighException::what() const throw()
 {
     return ("Form grade too high!");
 }
 
-const char* Form::GradeTooLowException::what() const throw()
+const char  *Form::GradeTooLowException::what() const throw()
 {
     return ("Form grade too low!");
 }

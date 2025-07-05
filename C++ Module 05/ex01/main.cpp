@@ -3,17 +3,18 @@
 
 int main()
 {
-    try {
+    try
+    {
         Bureaucrat b("Youssef", 50);
         Form f("FormA", 40, 30);
 
         std::cout << b << std::endl;
         std::cout << f << std::endl;
 
-        b.signForm(f); // should fail
+        b.signForm(f);
 
         Bureaucrat b2("Khadija", 30);
-        b2.signForm(f); // should succeed
+        b2.signForm(f);
 
         std::cout << f << std::endl;
     }

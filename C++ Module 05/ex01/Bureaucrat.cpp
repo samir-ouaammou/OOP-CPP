@@ -25,7 +25,7 @@ Bureaucrat::~Bureaucrat()
 {
 }
 
-const std::string &Bureaucrat::getName() const
+const std::string   &Bureaucrat::getName() const
 {
     return (_name);
 }
@@ -48,7 +48,7 @@ void    Bureaucrat::decrementGrade()
     _grade++;
 }
 
-void Bureaucrat::signForm(Form &form)
+void    Bureaucrat::signForm(Form &form)
 {
     try
     {
