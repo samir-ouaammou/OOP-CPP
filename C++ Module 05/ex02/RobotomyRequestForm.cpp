@@ -3,12 +3,14 @@
 #include <ctime>
 #include <iostream>
 
-RobotomyRequestForm::RobotomyRequestForm(const std::string &target) : AForm("RobotomyRequestForm", 72, 45), _target(target)
+RobotomyRequestForm::RobotomyRequestForm(const std::string &target) : AForm("RobotomyRequestForm", 72, 45)
 {
+    _target = target;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &copy) : AForm(copy), _target(copy._target)
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &copy) : AForm(copy)
 {
+    _target = copy._target;
 }
 
 RobotomyRequestForm &RobotomyRequestForm::operator=(const RobotomyRequestForm &src)
@@ -19,7 +21,9 @@ RobotomyRequestForm &RobotomyRequestForm::operator=(const RobotomyRequestForm &s
     return (*this);
 }
 
-RobotomyRequestForm::~RobotomyRequestForm() {}
+RobotomyRequestForm::~RobotomyRequestForm()
+{
+}
 
 void RobotomyRequestForm::execute(Bureaucrat const &executor) const
 {
@@ -30,7 +34,9 @@ void RobotomyRequestForm::execute(Bureaucrat const &executor) const
         throw GradeTooLowException();
 
     std::cout << "* Drilling noises *" << std::endl;
+
     std::srand(std::time(0));
+    
     if (std::rand() % 2)
         std::cout << _target << " has been robotomized successfully!" << std::endl;
     else

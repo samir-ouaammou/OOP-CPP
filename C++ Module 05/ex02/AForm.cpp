@@ -67,7 +67,7 @@ const char* AForm::NotSignedException::what() const throw()
     return ("AForm is not signed!");
 }
 
-std::ostream &operator<<(std::ostream &out, const AForm &form)
+std::ostream    &operator<<(std::ostream &out, const AForm &form)
 {
     out << "AForm " << form.getName()
         << ", signed: " << (form.isSigned() ? "yes" : "no")

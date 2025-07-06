@@ -14,7 +14,7 @@ class ShrubberyCreationForm : public AForm
         ShrubberyCreationForm &operator=(const ShrubberyCreationForm &src);
         ~ShrubberyCreationForm();
 
-        void execute(Bureaucrat const &executor) const;
+        void    execute(Bureaucrat const &executor) const;
 };
 
 #endif
