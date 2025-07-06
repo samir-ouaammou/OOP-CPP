@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+
 #include "Bureaucrat.hpp"
 
 class Bureaucrat;

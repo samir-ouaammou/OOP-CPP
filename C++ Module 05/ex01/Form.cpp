@@ -44,7 +44,6 @@ int     Form::getGradeToExecute() const
     return (_gradeToExecute);
 }
 
-
 void    Form::beSigned(const Bureaucrat &b)
 {
     if (b.getGrade() > _gradeToSign)

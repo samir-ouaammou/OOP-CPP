@@ -18,7 +18,8 @@ int main()
 
         std::cout << f << std::endl;
     }
-    catch (std::exception &e) {
+    catch (std::exception &e)
+    {
         std::cerr << "Exception: " << e.what() << std::endl;
     }
 
