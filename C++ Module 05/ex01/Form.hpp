@@ -1,4 +1,4 @@
-#ifndef FORM_HPP
+#ifndef ZZFORM_HPP
 #define FORM_HPP
 
 #include <iostream>
@@ -12,9 +12,9 @@ class Form
 {
     private:
         const std::string   _name;
-        bool        _isSigned;
-        const int   _gradeToSign;
-        const int   _gradeToExecute;
+        bool                _isSigned;
+        const int           _gradeToSign;
+        const int           _gradeToExecute;
 
     public:
         Form(const std::string &name, int gradeToSign, int gradeToExecute);
@@ -32,13 +32,13 @@ class Form
         class GradeTooHighException : public std::exception
         {
             public:
-                const char* what() const throw();
+                const char  *what() const throw();
         };
 
         class GradeTooLowException : public std::exception
         {
             public:
-                const char* what() const throw();
+                const char  *what() const throw();
         };
 };
 

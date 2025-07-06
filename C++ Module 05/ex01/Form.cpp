@@ -17,7 +17,7 @@ Form    &Form::operator=(const Form &src)
     if (this != &src)
         _isSigned = src._isSigned;
 
-    return *(this);
+    return (*this);
 }
 
 Form::~Form()

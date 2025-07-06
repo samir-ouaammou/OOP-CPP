@@ -11,40 +11,41 @@ class Bureaucrat;
 class AForm
 {
     private:
-        const std::string _name;
-        bool _isSigned;
-        const int _gradeToSign;
-        const int _gradeToExecute;
+        const std::string   _name;
+        bool                _isSigned;
+        const int           _gradeToSign;
+        const int           _gradeToExecute;
 
     public:
         AForm(const std::string &name, int gradeToSign, int gradeToExecute);
         AForm(const AForm &copy);
         AForm &operator=(const AForm &src);
-        virtual ~AForm();
+        ~AForm();
 
         const std::string   &getName() const;
         bool    isSigned() const;
         int     getGradeToSign() const;
         int     getGradeToExecute() const;
 
-        void beSigned(const Bureaucrat &b);
+        void    beSigned(const Bureaucrat &b);
 
         virtual void execute(Bureaucrat const &executor) const = 0;
 
         class GradeTooHighException : public std::exception
         {
             public:
-                const char* what() const throw();
+                const char  *what() const throw();
         };
+
         class GradeTooLowException : public std::exception
         {
             public:
-                const char* what() const throw();
+                const char  *what() const throw();
         };
         class NotSignedException : public std::exception
         {
             public:
-                const char* what() const throw();
+                const char  *what() const throw();
         };
 };
 
