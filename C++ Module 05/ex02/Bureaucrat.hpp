@@ -5,7 +5,7 @@
 #include <string>
 #include <stdexcept>
 
-#include "Form.hpp"
+#include "AForm.hpp"
 
 class AForm;
 
