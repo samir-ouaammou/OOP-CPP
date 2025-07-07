@@ -6,15 +6,15 @@ int main()
     Intern someRandomIntern;
     AForm* form;
 
-    form = someRandomIntern.makeForm("PresidentialPardonForm", "Bender");
+    form = someRandomIntern.makeForm("presidential pardon", "Bender");
     if (form)
         delete form;
 
-    form = someRandomIntern.makeForm("RobotomyRequestForm", "Garden");
+    form = someRandomIntern.makeForm("robotomy request", "Garden");
     if (form)
         delete form;
 
-    form = someRandomIntern.makeForm("ShrubberyCreationForm", "Samir");
+    form = someRandomIntern.makeForm("shrubbery creation", "Samir");
     if (form)
         delete form;
 
