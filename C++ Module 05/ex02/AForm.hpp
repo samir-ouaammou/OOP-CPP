@@ -19,8 +19,8 @@ class AForm
     public:
         AForm(const std::string &name, int gradeToSign, int gradeToExecute);
         AForm(const AForm &copy);
-        AForm &operator=(const AForm &src);
-        ~AForm();
+        AForm   &operator=(const AForm &src);
+        virtual ~AForm();
 
         const std::string   &getName() const;
         bool    isSigned() const;
@@ -36,13 +36,11 @@ class AForm
             public:
                 const char  *what() const throw();
         };
-
         class GradeTooLowException : public std::exception
         {
             public:
                 const char  *what() const throw();
         };
-
         class NotSignedException : public std::exception
         {
             public:
