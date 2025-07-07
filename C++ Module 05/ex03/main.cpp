@@ -1,49 +1,26 @@
-#include "Bureaucrat.hpp"
-#include "ShrubberyCreationForm.hpp"
-#include "RobotomyRequestForm.hpp"
-#include "PresidentialPardonForm.hpp"
-#include "Intern.hpp"
 #include <iostream>
+#include "Intern.hpp"
 
 int main()
 {
     Intern someRandomIntern;
     AForm* form;
 
-    std::cout << "\n--- Intern creates ShrubberyCreationForm ---" << std::endl;
-    form = someRandomIntern.makeForm("shrubbery creation", "Garden");
+    form = someRandomIntern.makeForm("PresidentialPardonForm", "Bender");
     if (form)
-    {
-        Bureaucrat bob("Bob", 1);
-        bob.signForm(*form);
-        bob.executeForm(*form);
         delete form;
-    }
 
-    std::cout << "\n--- Intern creates RobotomyRequestForm ---" << std::endl;
-    form = someRandomIntern.makeForm("robotomy request", "Bender");
+    form = someRandomIntern.makeForm("RobotomyRequestForm", "Garden");
     if (form)
-    {
-        Bureaucrat alice("Alice", 1);
-        alice.signForm(*form);
-        alice.executeForm(*form);
         delete form;
-    }
 
-    std::cout << "\n--- Intern creates PresidentialPardonForm ---" << std::endl;
-    form = someRandomIntern.makeForm("presidential pardon", "Arthur Dent");
+    form = someRandomIntern.makeForm("ShrubberyCreationForm", "Samir");
     if (form)
-    {
-        Bureaucrat zaphod("Zaphod", 1);
-        zaphod.signForm(*form);
-        zaphod.executeForm(*form);
         delete form;
-    }
 
-    std::cout << "\n--- Intern tries to create UnknownForm ---" << std::endl;
     form = someRandomIntern.makeForm("unknown form", "Nobody");
     if (form)
         delete form;
 
-    return 0;
+    return (0);
 }
