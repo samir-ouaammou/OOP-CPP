@@ -34,7 +34,6 @@ class Form
             public:
                 const char  *what() const throw();
         };
-
         class GradeTooLowException : public std::exception
         {
             public:
@@ -42,6 +41,6 @@ class Form
         };
 };
 
-std::ostream &operator<<(std::ostream &out, const Form &form);
+std::ostream    &operator<<(std::ostream &out, const Form &form);
 
 #endif

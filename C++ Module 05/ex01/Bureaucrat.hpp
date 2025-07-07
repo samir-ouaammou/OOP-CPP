@@ -34,7 +34,6 @@ class Bureaucrat
             public:
                 const char  *what() const throw();
         };
-
         class GradeTooLowException : public std::exception
         {
             public:
@@ -42,6 +41,6 @@ class Bureaucrat
         };
 };
 
-std::ostream& operator<<(std::ostream &out, const Bureaucrat &b);
+std::ostream    &operator<<(std::ostream &out, const Bureaucrat &b);
 
 #endif
