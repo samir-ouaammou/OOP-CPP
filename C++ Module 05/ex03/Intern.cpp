@@ -24,17 +24,17 @@ Intern::~Intern()
 {
 }
 
-static AForm	*makePresident(const std::string &target)
+AForm	*makePresident(const std::string &target)
 {
 	return (new PresidentialPardonForm(target));
 }
 
-static AForm	*makeRobot(const std::string &target)
+AForm	*makeRobot(const std::string &target)
 {
 	return (new RobotomyRequestForm(target));
 }
 
-static AForm	*makeShrubbery(const std::string &target)
+AForm	*makeShrubbery(const std::string &target)
 {
 	return (new ShrubberyCreationForm(target));
 }
