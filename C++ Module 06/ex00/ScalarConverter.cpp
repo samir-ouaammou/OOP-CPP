@@ -24,7 +24,7 @@ Type    detectType(const std::string &str)
     if (str.empty())
         return (TYPE_INVALID);
 
-    if (str.length() == 1 && !std::isdigit(str[0]))
+    if (str.size() == 1 && !std::isdigit(str[0]))
         return (TYPE_CHAR);
 
     if (str == "nanf" || str == "+inff" || str == "-inff")
