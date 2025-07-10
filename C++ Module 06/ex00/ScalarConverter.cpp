@@ -24,7 +24,7 @@ Type    detectType(const std::string &str)
     if (str.empty())
         return (TYPE_INVALID);
 
-    if (str.length() == 1 && !std::isdigit(str[0]))
+    if (str.size() == 1 && !std::isdigit(str[0]))
         return (TYPE_CHAR);
 
     if (str == "nanf" || str == "+inff" || str == "-inff")
@@ -35,6 +35,7 @@ Type    detectType(const std::string &str)
 
     std::istringstream iss(str);
     int i;
+    
     iss >> std::noskipws >> i;
     if (iss.eof() && !iss.fail())
         return (TYPE_INT);
@@ -53,18 +54,19 @@ Type    detectType(const std::string &str)
     issd >> std::noskipws >> d;
     if (issd.eof() && !issd.fail())
         return (TYPE_DOUBLE);
+        
     return (TYPE_INVALID);
 }
 
-static bool isDisplayable(char c)
+bool    isDisplayable(char c)
 {
     return (c >= 32 && c <= 126);
 }
 
-void ScalarConverter::convert(const std::string &literal)
+void    ScalarConverter::convert(const std::string &literal)
 {
-    std::string str = literal;
-    Type type = detectType(str);
+    const std::string   &str = literal;
+    Type    type = detectType(str);
 
     std::cout << std::fixed << std::setprecision(1);
 
