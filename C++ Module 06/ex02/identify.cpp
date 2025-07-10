@@ -10,10 +10,11 @@ Base    *generate(void)
 
     if (tmp == 0)
         return (new A);
+    
     else if (tmp == 1)
         return (new B);
-    else
-        return (new C);
+    
+    return (new C);
 }
 
 void    identify(Base *p)
