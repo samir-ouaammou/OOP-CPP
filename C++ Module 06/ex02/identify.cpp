@@ -6,11 +6,11 @@
 Base    *generate(void)
 {
     std::srand(std::time(0));
-    int r = std::rand() % 3;
+    int tmp = std::rand() % 3;
 
-    if (r == 0)
+    if (tmp == 0)
         return (new A);
-    else if (r == 1)
+    else if (tmp == 1)
         return (new B);
     else
         return (new C);
