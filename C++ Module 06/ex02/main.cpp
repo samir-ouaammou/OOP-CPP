@@ -13,5 +13,23 @@ int main()
 
     delete ptr;
 
+    // //--------------------------
+    // Base* b = new A();
+
+    // A* d = dynamic_cast<A*>(b);
+    // if (!d)
+    //     std::cout << "Cast failed\n";
+
+    // delete b;
+
+    // // //--------------------------
+    // Base* b = new Base();
+
+    // A* d = dynamic_cast<A*>(b);
+    // if (!d)
+    //     std::cout << "Cast failed\n";
+
+    // delete b;
+
     return 0;
 }
