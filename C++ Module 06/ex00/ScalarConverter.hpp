@@ -8,6 +8,9 @@
 #include <string>
 #include <limits>
 
+#define NAN   (0.0 / 0.0)
+#define INFINITY   (1.0 / 0.0)
+
 class ScalarConverter
 {
     private:

@@ -24,7 +24,7 @@ Type    detectType(const std::string &str)
     if (str.empty())
         return (TYPE_INVALID);
 
-    if (str.size() == 1 && !std::isdigit(str[0]))
+    if (str.length() == 1 && !std::isdigit(str[0]))
         return (TYPE_CHAR);
 
     if (str == "nanf" || str == "+inff" || str == "-inff")
@@ -33,28 +33,24 @@ Type    detectType(const std::string &str)
     if (str == "nan" || str == "+inf" || str == "-inf")
         return (TYPE_DOUBLE);
 
-    std::istringstream iss(str);
-    int i;
-    
-    iss >> std::noskipws >> i;
-    if (iss.eof() && !iss.fail())
+    char    *endptr;
+    long    i = std::strtol(str.c_str(), &endptr, 10);
+    if (*endptr == '\0' && i >= std::numeric_limits<int>::min() && i <= std::numeric_limits<int>::max())
         return (TYPE_INT);
 
     if (str.size() > 1 && str[str.size() - 1] == 'f')
     {
         std::string sub = str.substr(0, str.size() - 1);
-        std::istringstream issf(sub);
-        float f;
-        issf >> std::noskipws >> f;
-        if (issf.eof() && !issf.fail())
+        float   f = std::atof(sub.c_str());
+
+        if (f != 0.0f || sub == "0")
             return (TYPE_FLOAT);
     }
-    std::istringstream issd(str);
-    double d;
-    issd >> std::noskipws >> d;
-    if (issd.eof() && !issd.fail())
+
+    double  d = std::atof(str.c_str());
+    if (d != 0.0 || str == "0")
         return (TYPE_DOUBLE);
-        
+
     return (TYPE_INVALID);
 }
 
@@ -63,9 +59,9 @@ bool    isDisplayable(char c)
     return (c >= 32 && c <= 126);
 }
 
-void    ScalarConverter::convert(const std::string &literal)
+void ScalarConverter::convert(const std::string &literal)
 {
-    const std::string   &str = literal;
+    const std::string &str = literal;
     Type    type = detectType(str);
 
     std::cout << std::fixed << std::setprecision(1);
@@ -82,10 +78,8 @@ void    ScalarConverter::convert(const std::string &literal)
 
     if (type == TYPE_INT)
     {
-        long    l;
-        std::istringstream iss(str);
+        long    l = std::strtol(str.c_str(), NULL, 10);
 
-        iss >> l;
         if (l < std::numeric_limits<int>::min() || l > std::numeric_limits<int>::max())
         {
             std::cout << "char:   impossible\nint:    impossible\nfloat:  impossible\ndouble: impossible" << std::endl;
@@ -102,11 +96,7 @@ void    ScalarConverter::convert(const std::string &literal)
         else
             std::cout << "char:   impossible" << std::endl;
 
-        if (l < std::numeric_limits<int>::min() || l > std::numeric_limits<int>::max())
-            std::cout << "int:    impossible" << std::endl;
-        else
-            std::cout << "int:    " << i << std::endl;
-    
+        std::cout << "int:    " << i << std::endl;
         std::cout << "float:  " << static_cast<float>(i) << "f" << std::endl;
         std::cout << "double: " << static_cast<double>(i) << std::endl;
         return ;
@@ -115,24 +105,25 @@ void    ScalarConverter::convert(const std::string &literal)
     if (type == TYPE_FLOAT)
     {
         float   f;
+
         if (str == "nanf")
-            f = std::numeric_limits<float>::quiet_NaN();
+            f = NAN;
         else if (str == "+inff")
-            f = std::numeric_limits<float>::infinity();
+            f = INFINITY;
         else if (str == "-inff")
-            f = -std::numeric_limits<float>::infinity();
+            f = -INFINITY;
         else
         {
             std::string sub = str.substr(0, str.size() - 1);
-            std::istringstream iss(sub);
-            iss >> f;
+            f = std::atof(sub.c_str());
         }
-        if (f != f || f == std::numeric_limits<float>::infinity() || f == -std::numeric_limits<float>::infinity())
+
+        if (f != f || f == INFINITY || f == -INFINITY)
             std::cout << "char:   impossible\nint:    impossible" << std::endl;
         else
         {
-            char c = static_cast<char>(f);
-            int i = static_cast<int>(f);
+            char    c = static_cast<char>(f);
+            int     i = static_cast<int>(f);
 
             if (isDisplayable(c))
                 std::cout << "char:   '" << c << "'" << std::endl;
@@ -143,7 +134,7 @@ void    ScalarConverter::convert(const std::string &literal)
 
             std::cout << "int:    " << i << std::endl;
         }
-        
+
         std::cout << "float:  " << f << "f" << std::endl;
         std::cout << "double: " << static_cast<double>(f) << std::endl;
         return ;
@@ -152,31 +143,30 @@ void    ScalarConverter::convert(const std::string &literal)
     if (type == TYPE_DOUBLE)
     {
         double  d;
-        if (str == "nan")
-            d = std::numeric_limits<double>::quiet_NaN();
-        else if (str == "+inf")
-            d = std::numeric_limits<double>::infinity();
-        else if (str == "-inf")
-            d = -std::numeric_limits<double>::infinity();
-        else
-        {
-            std::istringstream iss(str);
-            iss >> d;
-        }
 
-        if (d != d || d == std::numeric_limits<double>::infinity() || d == -std::numeric_limits<double>::infinity())
+        if (str == "nan")
+            d = NAN;
+        else if (str == "+inf")
+            d = INFINITY;
+        else if (str == "-inf")
+            d = -INFINITY;
+        else
+            d = std::atof(str.c_str());
+
+        if (d != d || d == INFINITY || d == -INFINITY)
             std::cout << "char:   impossible\nint:    impossible" << std::endl;
         else
         {
-            char c = static_cast<char>(d);
-            int i = static_cast<int>(d);
+            char    c = static_cast<char>(d);
+            int     i = static_cast<int>(d);
+
             if (isDisplayable(c))
                 std::cout << "char:   '" << c << "'" << std::endl;
             else if (i >= 0 && i <= 127)
                 std::cout << "char:   Non displayable" << std::endl;
             else
                 std::cout << "char:   impossible" << std::endl;
-            
+
             if (d < std::numeric_limits<int>::min() || d > std::numeric_limits<int>::max())
                 std::cout << "int:    impossible" << std::endl;
             else
