@@ -2,6 +2,7 @@
 #define SERIALIZER_HPP
 
 #include <cstdlib>
+#include <stdint.h>
 #include "Data.hpp"
 
 class Serializer
@@ -13,8 +14,8 @@ class Serializer
         ~Serializer();
 
     public:
-        static unsigned long serialize(Data *ptr);
-        static Data *deserialize(unsigned long raw);
+        static uintptr_t    serialize(Data *ptr);
+        static Data *deserialize(uintptr_t raw);
 };
 
 #endif

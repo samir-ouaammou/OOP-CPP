@@ -3,7 +3,7 @@
 
 int main()
 {
-    Base *ptr = generate();
+    Base    *ptr = generate();
 
     std::cout << "Identify by pointer: ";
     identify(ptr);
@@ -14,7 +14,7 @@ int main()
     delete ptr;
 
     // //--------------------------
-    // Base* b = new A();
+    // Base *b = new A();
 
     // A* d = dynamic_cast<A*>(b);
     // if (!d)
@@ -25,7 +25,7 @@ int main()
     // // //--------------------------
     // Base* b = new Base();
 
-    // A* d = dynamic_cast<A*>(b);
+    // A    *d = dynamic_cast<A*>(b);
     // if (!d)
     //     std::cout << "Cast failed\n";
 

@@ -59,9 +59,9 @@ bool    isDisplayable(char c)
     return (c >= 32 && c <= 126);
 }
 
-void ScalarConverter::convert(const std::string &literal)
+void    ScalarConverter::convert(const std::string &literal)
 {
-    const std::string &str = literal;
+    const std::string   &str = literal;
     Type    type = detectType(str);
 
     std::cout << std::fixed << std::setprecision(1);
