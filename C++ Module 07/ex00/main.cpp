@@ -1,5 +1,3 @@
-#include <iostream>
-#include <string>
 #include "whatever.hpp"
 
 int main( void )
