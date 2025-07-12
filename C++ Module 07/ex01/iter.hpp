@@ -11,7 +11,7 @@ void    printElement(const T &elem)
 }
 
 template <typename T>
-void    iter(T *array, size_t length, void (*func)(T const &))
+void    iter(T array[], size_t length, void (*func)(T const &))
 {
     for (size_t i = 0; i < length; i++)
         func(array[i]);
