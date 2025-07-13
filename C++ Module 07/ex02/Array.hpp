@@ -2,6 +2,7 @@
 #define ARRAY_HPP
 
 #include <iostream>
+#include <stdexcept>
 #include <string>
 
 template <typename T>
