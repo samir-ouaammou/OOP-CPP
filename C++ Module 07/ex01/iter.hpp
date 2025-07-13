@@ -5,13 +5,13 @@
 #include <string>
 
 template <typename T>
-void    printElement(const T &elem)
+void    printElement(T &elem)
 {
     std::cout << elem << std::endl;
 }
 
 template <typename T>
-void    iter(T array[], size_t length, void (*func)(T const &))
+void    iter(T array[], size_t length, void (*func)(T &))
 {
     for (size_t i = 0; i < length; i++)
         func(array[i]);
