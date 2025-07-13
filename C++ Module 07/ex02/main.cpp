@@ -1,6 +1,7 @@
 #include "Array.hpp"
 
-int main() {
+int main()
+{
     try
     {
         std::cout << "---- Test 1: Empty array ----" << std::endl;
@@ -41,5 +42,5 @@ int main() {
         std::cerr << "Exception caught: " << e.what() << std::endl;
     }
 
-    return 0;
+    return (0);
 }
