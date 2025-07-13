@@ -22,27 +22,29 @@ class Array
                 _data = new T[n]();
         }
 
-        Array(const Array& other) : _data(NULL), _size(other._size)
+        Array(const Array &copy) : _data(NULL), _size(copy._size)
         {
             if (_size > 0)
             {
                 _data = new T[_size]();
                 for (unsigned int i = 0; i < _size; ++i)
-                    _data[i] = other._data[i];
+                    _data[i] = copy._data[i];
             }
         }
 
-        Array   &operator=(const Array& other)
+        Array   &operator=(const Array &src)
         {
-            if (this != &other)
+            if (this != &src)
             {
-                delete[] _data;
-                _size = other._size;
+                if (_data)
+                    delete[] _data;
+
+                _size = src._size;
                 if (_size > 0)
                 {
                     _data = new T[_size]();
                     for (unsigned int i = 0; i < _size; ++i)
-                        _data[i] = other._data[i];
+                        _data[i] = src._data[i];
                 }
                 else
                     _data = NULL;
@@ -52,7 +54,8 @@ class Array
 
         ~Array()
         {
-            delete[] _data;
+            if (_data)
+                delete[] _data;
         }
 
         T   &operator[](unsigned int idx)
