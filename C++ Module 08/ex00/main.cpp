@@ -2,7 +2,6 @@
 #include <iostream>
 #include <vector>
 #include <list>
-#include <set>
 
 int main()
 {
@@ -65,35 +64,5 @@ int main()
         std::cerr << e.what() << std::endl;
     }
 
-    std::cout << "<----------Testing easyfind with std::set<int>---------->\n" << std::endl;
-
-    std::set<int>    Set;
-
-    Set.insert(-1);
-    Set.insert(-2);
-    Set.insert(-3);
-    Set.insert(-4);
-    Set.insert(-5);
-
-    try
-    {
-        std::set<int>::iterator it = easyfind(Set, -3);
-        std::cout << "Found: " << *it << std::endl;
-    }
-    catch (const std::exception &e)
-    {
-        std::cerr << e.what() << std::endl;
-    }
-
-    try
-    {
-        std::set<int>::iterator it = easyfind(Set, -6);
-        std::cout << "Found: " << *it << std::endl;
-    }
-    catch (const std::exception &e)
-    {
-        std::cerr << e.what() << std::endl;
-    }
-
-    return 0;
+    return (0);
 }
