@@ -50,6 +50,18 @@
         "cerrno": "cpp",
         "climits": "cpp",
         "queue": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "charconv": "cpp",
+        "chrono": "cpp",
+        "cstring": "cpp",
+        "ctime": "cpp",
+        "ratio": "cpp",
+        "format": "cpp",
+        "iomanip": "cpp",
+        "span": "cpp",
+        "sstream": "cpp",
+        "text_encoding": "cpp",
+        "cinttypes": "cpp",
+        "variant": "cpp"
     }
 }
