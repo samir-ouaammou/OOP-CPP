@@ -46,6 +46,10 @@
         "ostream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "cerrno": "cpp",
+        "climits": "cpp",
+        "queue": "cpp",
+        "stack": "cpp"
     }
 }

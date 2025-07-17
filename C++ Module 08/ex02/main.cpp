@@ -1,33 +1,26 @@
 #include "MutantStack.hpp"
 #include <iostream>
+#include <string>
 
 int main()
 {
-    MutantStack<int> mstack;
+    MutantStack<std::string> s;
+    s.push("one");
+    s.push("two");
+    s.push("three");
 
-    mstack.push(10);
-    mstack.push(20);
-    mstack.push(30);
+    std::cout << "Normal iteration:\n";
+    for (MutantStack<std::string>::iterator it = s.begin(); it != s.end(); ++it)
+        std::cout << *it << "\n";
 
-    std::cout << "Top: " << mstack.top() << std::endl;
+    std::cout << "\nReverse iteration:\n";
+    for (MutantStack<std::string>::reverse_iterator it = s.rbegin(); it != s.rend(); ++it)
+        std::cout << *it << "\n";
 
-    mstack.pop();
+    const MutantStack<std::string> cs = s;
+    std::cout << "\nConst iteration:\n";
+    for (MutantStack<std::string>::const_iterator it = cs.begin(); it != cs.end(); ++it)
+        std::cout << *it << "\n";
 
-    std::cout << "Size: " << mstack.size() << std::endl;
-
-    mstack.push(40);
-    mstack.push(50);
-
-    std::cout << "Contents of stack:" << std::endl;
-
-    MutantStack<int>::iterator it = mstack.begin();
-    MutantStack<int>::iterator ite = mstack.end();
-
-    while (it != ite)
-    {
-        std::cout << *it << std::endl;
-        ++it;
-    }
-
-    return (0);
+    return 0;
 }
