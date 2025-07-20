@@ -16,8 +16,8 @@ class BitcoinExchange
         BitcoinExchange &operator=(const BitcoinExchange &src);
         ~BitcoinExchange();
 
-        void    parseDatabase(const std::string &filename);
-        void    parseInputFile(const std::string &filename);
+        void    parseDatabase(const std::string &fileName);
+        void    parseInputFile(const std::string &fileName);
         void    handleLine(const std::string &line);
         bool    findValue(const std::string &date, float &rate) const;
         bool    isValidDate(const std::string &date) const;

@@ -24,9 +24,9 @@ BitcoinExchange::~BitcoinExchange()
 {
 }
 
-void    BitcoinExchange::parseDatabase(const std::string &filename)
+void    BitcoinExchange::parseDatabase(const std::string &fileName)
 {
-    std::ifstream file(filename.c_str());
+    std::ifstream file(fileName.c_str());
     if (!file.is_open())
     {
         std::cerr << "Error: could not open database file." << std::endl;
@@ -51,9 +51,9 @@ void    BitcoinExchange::parseDatabase(const std::string &filename)
     }
 }
 
-void    BitcoinExchange::parseInputFile(const std::string &filename)
+void    BitcoinExchange::parseInputFile(const std::string &fileName)
 {
-    std::ifstream file(filename.c_str());
+    std::ifstream file(fileName.c_str());
     if (!file.is_open())
     {
         std::cerr << "Error: could not open input file." << std::endl;
