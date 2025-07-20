@@ -36,7 +36,7 @@ void    BitcoinExchange::parseDatabase(const std::string &fileName)
     std::string line;
     float       value;
 
-    std::getline(file, line); 
+    std::getline(file, line);
 
     while (std::getline(file, line))
     {
@@ -90,7 +90,7 @@ void    BitcoinExchange::handleLine(const std::string &line)
     std::cout << date << " => " << value << " = " << rate * value << std::endl;
 }
 
-bool    BitcoinExchange::findValue(const std::string &date, float &rate) const
+bool    BitcoinExchange::findValue(const std::string &date, float &rate)
 {
     std::map<std::string, float>::const_iterator it = _database.lower_bound(date);
 
@@ -108,10 +108,11 @@ bool    BitcoinExchange::findValue(const std::string &date, float &rate) const
 
     --it;
     rate = it->second;
+
     return (true);
 }
 
-bool    BitcoinExchange::isValidDate(const std::string &date) const
+bool    BitcoinExchange::isValidDate(const std::string &date)
 {
     if (date.length() != 10 || date[4] != '-' || date[7] != '-')
         return (false);
@@ -129,7 +130,7 @@ bool    BitcoinExchange::isValidDate(const std::string &date) const
     return (true);
 }
 
-bool    BitcoinExchange::isValidValue(const std::string &valueStr, float &value) const
+bool    BitcoinExchange::isValidValue(const std::string &valueStr, float &value)
 {
     std::istringstream ss(valueStr);
     ss >> value;

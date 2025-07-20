@@ -8,7 +8,7 @@
 class BitcoinExchange
 {
     private:
-        std::map<std::string, float> _database;
+        std::map<std::string, float>    _database;
 
     public:
         BitcoinExchange();
@@ -19,9 +19,9 @@ class BitcoinExchange
         void    parseDatabase(const std::string &fileName);
         void    parseInputFile(const std::string &fileName);
         void    handleLine(const std::string &line);
-        bool    findValue(const std::string &date, float &rate) const;
-        bool    isValidDate(const std::string &date) const;
-        bool    isValidValue(const std::string &valueStr, float &value) const;
+        bool    findValue(const std::string &date, float &rate);
+        bool    isValidDate(const std::string &date);
+        bool    isValidValue(const std::string &valueStr, float &value);
 };
 
 #endif
