@@ -18,7 +18,7 @@ void    checkInput(std::string &input)
 
     for (size_t i = 0; i < input.length(); i++)
     {
-        if (!isdigit(input[i]) && !isspace(input[i]) && !isOperator(input[i]))
+        if (!isdigit(input[i]) && !isspace(input[i]) && !isOperator(input[i]) && input[i] != '.')
         {
             std::cerr << "Error: invalid character in input: '" << input[i] << "'" << std::endl;
             exit(1);
@@ -28,7 +28,7 @@ void    checkInput(std::string &input)
 
 void    calculatrice(std::string &input)
 {
-    std::stack<int> stack;
+    std::stack<float> stack;
     std::istringstream stream(input);
     std::string token;
 
@@ -36,9 +36,14 @@ void    calculatrice(std::string &input)
     {
         if (isdigit(token[0])) 
         {
-            int value;
+            float value;
             std::istringstream ss(token);
             ss >> value;
+            if (value < 0 || value > 9)
+            {
+                std::cerr << "Error: '" << token << "' is not valid. Numbers must be between 0 and 9." << std::endl;
+                exit (1);
+            }
             stack.push(value);
         }
         else if (token == "+" || token == "-" || token == "*" || token == "/")
@@ -49,8 +54,8 @@ void    calculatrice(std::string &input)
                 exit(1);
             }
 
-            int a;
-            int b;
+            float a;
+            float b;
 
             b = stack.top();
             stack.pop();
