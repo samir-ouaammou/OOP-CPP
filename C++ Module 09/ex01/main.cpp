@@ -1,0 +1,106 @@
+#include <iostream>
+#include <sstream>
+#include <stack>
+#include <cstdlib>
+
+bool    isOperator(char c)
+{
+    return (c == '+' || c == '-' || c == '*' || c == '/');
+}
+
+void    checkInput(std::string &input)
+{
+    if (input.empty())
+    {
+        std::cerr << "Error: input is empty" << std::endl;
+        exit(1);
+    }
+
+    for (size_t i = 0; i < input.length(); i++)
+    {
+        if (!isdigit(input[i]) && !isspace(input[i]) && !isOperator(input[i]))
+        {
+            std::cerr << "Error: invalid character in input: '" << input[i] << "'" << std::endl;
+            exit(1);
+        }
+    }
+}
+
+void    calculatrice(std::string &input)
+{
+    std::stack<int> stack;
+    std::istringstream stream(input);
+    std::string token;
+
+    while (stream >> token)
+    {
+        if (isdigit(token[0])) 
+        {
+            int value;
+            std::istringstream ss(token);
+            ss >> value;
+            stack.push(value);
+        }
+        else if (token == "+" || token == "-" || token == "*" || token == "/")
+        {
+            if (stack.size() < 2)
+            {
+                std::cerr << "Error: not enough operands" << std::endl;
+                exit(1);
+            }
+
+            int a;
+            int b;
+
+            b = stack.top();
+            stack.pop();
+            a = stack.top();
+            stack.pop();
+
+            if (token == "+")
+                stack.push(a + b);
+            else if (token == "-")
+                stack.push(a - b);
+            else if (token == "*")
+                stack.push(a * b);
+            else if (token == "/")
+            {
+                if (b == 0)
+                {
+                    std::cerr << "Error: division by zero" << std::endl;
+                    exit(1);
+                }
+                stack.push(a / b);
+            }
+        }
+        else
+        {
+            std::cerr << "Error: invalid token" << std::endl;
+            exit(1);
+        }
+    }
+
+    if (stack.size() != 1)
+    {
+        std::cerr << "Error: invalid expression" << std::endl;
+        exit(1);
+    }
+
+    std::cout << stack.top() << std::endl;
+}
+
+int main(int ac, char **av)
+{
+    if (ac != 2)
+    {
+        std::cerr << "Error: invalid arguments" << std::endl;
+        return 1;
+    }
+
+    std::string input = av[1];
+
+    checkInput(input);
+    calculatrice(input);
+
+    return 0;
+}
