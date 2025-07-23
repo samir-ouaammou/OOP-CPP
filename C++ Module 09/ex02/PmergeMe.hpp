@@ -15,17 +15,14 @@ class PmergeMe
         std::vector<int>    _vector;
         std::deque<int>     _deque;
 
-        long long _vectorTime;
-        long long _dequeTime;
+        long long   _vectorTime;
+        long long   _dequeTime;
 
     public:
         PmergeMe();
         PmergeMe(const PmergeMe &copy);
         PmergeMe &operator=(const PmergeMe &src);
         ~PmergeMe();
-
-        std::vector<int> &getVector();
-        std::deque<int> &getDeque();
 
         void    addToVector(const std::string &input);
         void    addToDeque(const std::string &input);

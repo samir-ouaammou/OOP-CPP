@@ -1,7 +1,9 @@
 #include "PmergeMe.hpp"
 
-PmergeMe::PmergeMe() : _vectorTime(0), _dequeTime(0)
+PmergeMe::PmergeMe()
 {
+    _vectorTime = 0;
+    _dequeTime = 0;
 }
 
 PmergeMe::PmergeMe(const PmergeMe &copy)
@@ -25,16 +27,6 @@ PmergeMe::~PmergeMe()
 {
 }
 
-std::vector<int> &PmergeMe::getVector()
-{
-    return (_vector);
-}
-
-std::deque<int> &PmergeMe::getDeque()
-{
-    return (_deque);
-}
-
 long long   PmergeMe::getTime()
 {
     struct timeval time;
@@ -50,10 +42,14 @@ void    PmergeMe::addToVector(const std::string &input)
     while (iss >> token)
     {
         std::stringstream ss(token);
-        int num;
+        long    num;
+
         ss >> num;
-        if (ss.fail() || !ss.eof() || num < 0)
-            throw std::runtime_error("Error");
+        if (ss.fail() || !ss.eof() || num < 0 || num > 2147483647)
+        {
+            std::cerr << "Error" << std::endl;
+            exit (1);
+        }
         _vector.push_back(num);
     }
 }
@@ -66,10 +62,14 @@ void    PmergeMe::addToDeque(const std::string &input)
     while (iss >> token)
     {
         std::stringstream ss(token);
-        int num;
+        long    num;
+
         ss >> num;
-        if (ss.fail() || !ss.eof() || num < 0)
-            throw std::runtime_error("Error");
+        if (ss.fail() || !ss.eof() || num < 0 || num > 2147483647)
+        {
+            std::cerr << "Error" << std::endl;
+            exit (1);
+        }
         _deque.push_back(num);
     }
 }
@@ -77,7 +77,15 @@ void    PmergeMe::addToDeque(const std::string &input)
 void    PmergeMe::printVectorBefore() const
 {
     std::cout << "Before: ";
-    for (std::vector<int>::const_iterator it = _vector.begin(); it != _vector.end(); ++it)
+    for (std::vector<int>::const_iterator it = _vector.begin(); it != _vector.end(); it++)
+        std::cout << *it << " ";
+    std::cout << std::endl;
+}
+
+void    PmergeMe::printDequeBefore() const
+{
+    std::cout << "Before: ";
+    for (std::deque<int>::const_iterator it = _deque.begin(); it != _deque.end(); it++)
         std::cout << *it << " ";
     std::cout << std::endl;
 }
@@ -85,7 +93,15 @@ void    PmergeMe::printVectorBefore() const
 void    PmergeMe::printVectorAfter() const
 {
     std::cout << "After: ";
-    for (std::vector<int>::const_iterator it = _vector.begin(); it != _vector.end(); ++it)
+    for (std::vector<int>::const_iterator it = _vector.begin(); it != _vector.end(); it++)
+        std::cout << *it << " ";
+    std::cout << std::endl;
+}
+
+void    PmergeMe::printDequeAfter() const
+{
+    std::cout << "After: ";
+    for (std::deque<int>::const_iterator it = _deque.begin(); it != _deque.end(); it++)
         std::cout << *it << " ";
     std::cout << std::endl;
 }
@@ -96,13 +112,13 @@ void    PmergeMe::printTiming() const
     std::cout << "Time to process a range of " << _deque.size() << " elements with std::deque : " << _dequeTime << " us" << std::endl;
 }
 
-void    PmergeMe::mergeInsertSortVector(std::vector<int>& vector)
+void    PmergeMe::mergeInsertSortVector(std::vector<int> &vector)
 {
     if (vector.size() <= 1)
         return;
 
-    std::vector<int> left(vector.begin(), vector.begin() + vector.size() / 2);
-    std::vector<int> right(vector.begin() + vector.size() / 2, vector.end());
+    std::vector<int>    left(vector.begin(), vector.begin() + vector.size() / 2);
+    std::vector<int>    right(vector.begin() + vector.size() / 2, vector.end());
 
     mergeInsertSortVector(left);
     mergeInsertSortVector(right);
@@ -111,7 +127,7 @@ void    PmergeMe::mergeInsertSortVector(std::vector<int>& vector)
     std::merge(left.begin(), left.end(), right.begin(), right.end(), std::back_inserter(vector));
 }
 
-void PmergeMe::mergeInsertSortDeque(std::deque<int>& deque)
+void    PmergeMe::mergeInsertSortDeque(std::deque<int> &deque)
 {
     if (deque.size() <= 1)
         return;
@@ -126,12 +142,12 @@ void PmergeMe::mergeInsertSortDeque(std::deque<int>& deque)
     std::merge(left.begin(), left.end(), right.begin(), right.end(), std::back_inserter(deque));
 }
 
-void    PmergeMe::insertInSortedVector(std::vector<int>& vector, int value)
+void    PmergeMe::insertInSortedVector(std::vector<int> &vector, int value)
 {
     vector.insert(std::upper_bound(vector.begin(), vector.end(), value), value);
 }
 
-void    PmergeMe::insertInSortedDeque(std::deque<int>& deque, int value)
+void    PmergeMe::insertInSortedDeque(std::deque<int> &deque, int value)
 {
     deque.insert(std::upper_bound(deque.begin(), deque.end(), value), value);
 }

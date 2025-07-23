@@ -5,7 +5,7 @@ bool    isPositiveInteger(const std::string &input)
     if (input.empty())
         return (false);
 
-    for (size_t i = 0; i < input.size(); ++i)
+    for (size_t i = 0; i < input.size(); i++)
     {
         if (!isdigit(input[i]))
             return (false);
@@ -45,11 +45,13 @@ int main(int ac, char** av)
     }
 
     sorter.printVectorBefore();
+    // sorter.printDequeBefore();
 
     sorter.sortVector();
     sorter.sortDeque();
 
     sorter.printVectorAfter();
+    // sorter.printDequeAfter();
     sorter.printTiming();
 
     return (0);
