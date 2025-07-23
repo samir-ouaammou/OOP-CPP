@@ -36,11 +36,11 @@ class PmergeMe
         void    sortVector();
         void    sortDeque();
 
-        void    mergeInsertSortVector(std::vector<int>& vector);
-        void    mergeInsertSortDeque(std::deque<int>& deque);
+        void    mergeInsertSortVector(std::vector<int> &vector);
+        void    mergeInsertSortDeque(std::deque<int> &deque);
 
-        void    insertInSortedVector(std::vector<int>& vector, int value);
-        void    insertInSortedDeque(std::deque<int>& deque, int value);
+        void    insertInSortedVector(std::vector<int> &vector, int value);
+        void    insertInSortedDeque(std::deque<int> &deque, int value);
 
         long long   getTime();
 };
