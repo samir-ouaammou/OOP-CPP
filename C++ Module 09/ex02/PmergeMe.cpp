@@ -108,14 +108,31 @@ void    PmergeMe::printDequeAfter() const
 
 void    PmergeMe::printTiming() const
 {
-    std::cout << "Time to process a range of " << _vector.size() << " elements with std::vector : " << _vectorTime << " us" << std::endl;
-    std::cout << "Time to process a range of " << _deque.size() << " elements with std::deque : " << _dequeTime << " us" << std::endl;
+    std::cout << std::fixed << std::setprecision(5);
+    std::cout << "Time to process a range of " << _vector.size() << " elements with std::vector : " << static_cast<double>(_vectorTime) << " us" << std::endl;
+    std::cout << "Time to process a range of " << _deque.size() << " elements with std::deque : " << static_cast<double>(_dequeTime) << " us" << std::endl;
 }
 
 void    PmergeMe::mergeInsertSortVector(std::vector<int> &vector)
 {
     if (vector.size() <= 1)
         return;
+
+    if (vector.size() <= 16)
+    {
+        for (size_t i = 1; i < vector.size(); ++i)
+        {
+            int key = vector[i];
+            size_t j = i;
+            while (j > 0 && vector[j - 1] > key)
+            {
+                vector[j] = vector[j - 1];
+                --j;
+            }
+            vector[j] = key;
+        }
+        return ;
+    }
 
     std::vector<int>    left(vector.begin(), vector.begin() + vector.size() / 2);
     std::vector<int>    right(vector.begin() + vector.size() / 2, vector.end());
@@ -131,6 +148,22 @@ void    PmergeMe::mergeInsertSortDeque(std::deque<int> &deque)
 {
     if (deque.size() <= 1)
         return;
+
+    if (deque.size() <= 16)
+    {
+        for (size_t i = 1; i < deque.size(); ++i)
+        {
+            int key = deque[i];
+            size_t j = i;
+            while (j > 0 && deque[j - 1] > key)
+            {
+                deque[j] = deque[j - 1];
+                --j;
+            }
+            deque[j] = key;
+        }
+        return ;
+    }
 
     std::deque<int> left(deque.begin(), deque.begin() + deque.size() / 2);
     std::deque<int> right(deque.begin() + deque.size() / 2, deque.end());
@@ -167,3 +200,5 @@ void    PmergeMe::sortDeque()
     long long end = getTime();
     _dequeTime = end - start;
 }
+
+// <Insertion Sort> &  <Merge Sort>
