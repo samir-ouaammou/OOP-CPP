@@ -45,13 +45,11 @@ int main(int ac, char** av)
     }
 
     sorter.printVectorBefore();
-    // sorter.printDequeBefore();
 
     sorter.sortVector();
     sorter.sortDeque();
 
     sorter.printVectorAfter();
-    // sorter.printDequeAfter();
     sorter.printTiming();
 
     return (0);
