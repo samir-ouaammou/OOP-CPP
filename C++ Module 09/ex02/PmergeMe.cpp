@@ -245,27 +245,25 @@ void    PmergeMe::addToContainers(const std::string &input)
     
     while (iss >> temp)
     {
-        int num = 0;
-        bool valid = true;
-        for (size_t i = 0; i < temp.size(); ++i)
+        long long   num = 0;
+    
+        for (size_t i = 0; i < temp.size(); i++)
         {
-            if (temp[i] < '0' || temp[i] > '9')
+            if (temp[i] < '0' || temp[i] > '9' || num > 2147483647)
             {
-                valid = false;
-                break;
+                std::cerr << "Error: Invalid input: " << temp << std::endl;
+                exit(1);
             }
             num = num * 10 + (temp[i] - '0');
         }
-        if (valid)
+        bool isValideNum = (std::find(_vector.begin(), _vector.end(), num) != _vector.end());
+        if (isValideNum)
         {
-            _vector.push_back(num);
-            _deque.push_back(num);
-        }
-        else
-        {
-            std::cerr << "Error: Invalid input: " << temp << std::endl;
+            std::cerr << "Error: Duplicate number found: " << num << std::endl;
             exit(1);
         }
+        _vector.push_back(num);
+        _deque.push_back(num);
     }
 }
 
