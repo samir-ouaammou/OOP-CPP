@@ -1,4 +1,4 @@
-SRC = main.cpp PmergeMe.cpp
+SRC = main.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
