@@ -6,9 +6,10 @@
 #include <string>
 #include <vector>
 #include <deque>
-#include <iomanip>
 #include <algorithm>
 #include <sys/time.h>
+#include <iomanip>
+#include <stdexcept>
 
 class PmergeMe
 {
@@ -24,26 +25,32 @@ class PmergeMe
         PmergeMe(const PmergeMe &copy);
         PmergeMe &operator=(const PmergeMe &src);
         ~PmergeMe();
-
-        void    addToVector(const std::string &input);
-        void    addToDeque(const std::string &input);
-
+        
         void    printVectorBefore() const;
         void    printDequeBefore() const;
         void    printVectorAfter() const;
         void    printDequeAfter() const;
         void    printTiming() const;
 
+        void    addToContainers(const std::string& input);
+        
         void    sortVector();
         void    sortDeque();
 
-        void    mergeInsertSortVector(std::vector<int> &vector);
-        void    mergeInsertSortDeque(std::deque<int> &deque);
+        int     jacobsthal(int n);
+        
+        void    fordJohnsonSortVector(std::vector<int> &vector);
+        void    fordJohnsonSortDeque(std::deque<int> &deque);
 
-        void    insertInSortedVector(std::vector<int> &vector, int value);
-        void    insertInSortedDeque(std::deque<int> &deque, int value);
+        int     binarySearchVector(const std::vector<int> &sorted, int value, int high);
+        int     binarySearchDeque(const std::deque<int> &sorted, int value, int high);
 
-        long long   getTime();
+        void    insertRemainingVector(std::vector<int> &sorted, const std::vector<int> &remaining);
+        void    insertRemainingDeque(std::deque<int> &sorted, const std::vector<int> &remaining);
+
+        long long getTimeMicroseconds();
+
+
 };
 
 #endif
