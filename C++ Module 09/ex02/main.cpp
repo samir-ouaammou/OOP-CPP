@@ -65,12 +65,6 @@ size_t  binarySearchPosition(const std::vector<int> &vector, int value, size_t l
     return (low);
 }
 
-void    binaryInsert(std::vector<int> &vector, int value, size_t limit)
-{
-    size_t pos = binarySearchPosition(vector, value, limit);
-    vector.insert(vector.begin() + pos, value);
-}
-
 std::vector<int>    generateJacobsthal(int n)
 {
     std::vector<int> seq;
