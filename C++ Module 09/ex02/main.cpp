@@ -1,183 +1,220 @@
-#include <ctime>
-#include <cstdlib>
 #include <iostream>
-#include <sstream>
-#include <string>
-#include <vector>
-#include <deque>
-#include <sys/time.h>
-#include <iomanip>
-#include <stdexcept>
 #include <algorithm>
+#include <sys/time.h>
+#include <vector>
+#include <cstdlib>
+#include <climits>
+#include <iomanip>
 
-void    addToVector(const std::string &input, std::vector<int> &numbers)
+std::vector<int>    parseInput(int ac, char **av)
 {
-    std::istringstream iss(input);
-    std::string temp;
-
-    while (iss >> temp)
+    std::vector<int> result;
+    for (int i = 1; i < ac; ++i)
     {
-        long long   num = 0;
-
-        for (size_t i = 0; i < temp.size(); i++)
+        char *end;
+        long num = std::strtol(av[i], &end, 10);
+        if (*end != '\0' || num > INT_MAX || num < INT_MIN)
         {
-            if (temp[i] < '0' || temp[i] > '9' || num > 2147483647)
-            {
-                std::cerr << "Error: Invalid input: " << temp << std::endl;
-                exit(1);
-            }
-            num = num * 10 + (temp[i] - '0');
+            std::cerr << "Error: Invalid input -> " << av[i] << std::endl;
+            std::exit(1);
         }
-
-        bool isDuplicate = (std::find(numbers.begin(), numbers.end(), num) != numbers.end());
+        bool isDuplicate = (std::find(result.begin(), result.end(), num) != result.end());
         if (isDuplicate)
         {
             std::cerr << "Error: Duplicate number found: " << num << std::endl;
             exit(1);
         }
-
-        numbers.push_back(static_cast<int>(num));
+        result.push_back(static_cast<int>(num));
     }
+    return (result);
 }
 
-void    printVectorBefore(const std::vector<int> &numbers)
+void    pairAndCompare(const std::vector<int> &input, std::vector<int> &bigs, std::vector<int> &smalls, int &leftover)
 {
-    std::cout << "Before: ";
-    for (size_t i = 0; i < numbers.size(); i++)
-        std::cout << numbers[i] << " ";
-    std::cout << std::endl;
-}
-
-void    printVectorAfter(const std::vector<int> &numbers)
-{
-    std::cout << "After: ";
-    for (size_t i = 0; i < numbers.size(); i++)
-        std::cout << numbers[i] << " ";
-    std::cout << std::endl;
-}
-
-void    printTiming(clock_t start, clock_t end, size_t size)
-{
-    std::cout << std::fixed << std::setprecision(5);
-    double timeTaken = double(end - start) / CLOCKS_PER_SEC * 1000000;
-    std::cout << "Time to process a range of " << size << " elements with std::vector : " << static_cast<double>(timeTaken) << " us" << std::endl;
-}
-
-int binarySearch(const std::vector<int> &vector, int left, int right, int key)
-{
-    while (left < right)
+    leftover = -1;
+    for (size_t i = 0; i + 1 < input.size(); i += 2)
     {
-        int mid = left + (right - left) / 2;
-        if (vector[mid] < key)
-            left = mid + 1;
-        else
-            right = mid;
-    }
-    return (left);
-}
-
-void    mergeInsertionSort(std::vector<int> &vector)
-{
-    int n = vector.size();
-    
-    for (int i = 0; i < n / 2; i++)
-    {
-        if (vector[2 * i] > vector[2 * i + 1])
-            std::swap(vector[2 * i], vector[2 * i + 1]);
-    }
-
-    for (int size = 2; size < n; size *= 2)
-    {
-        for (int i = 0; i < n; i += size)
+        if (input[i] > input[i + 1])
         {
-            int mid = std::min(i + size / 2, n);
-            int end = std::min(i + size, n);
-            std::vector<int> temp(end - i);
-            int left = i, right = mid, k = 0;
-            
-            while (left < mid && right < end)
-            {
-                if (vector[left] <= vector[right])
-                    temp[k++] = vector[left++];
-                else
-                    temp[k++] = vector[right++];
-            }
-            
-            while (left < mid)
-                temp[k++] = vector[left++];
-
-            while (right < end)
-                temp[k++] = vector[right++];
-            
-            for (int j = 0; j < k; ++j)
-                vector[i + j] = temp[j];
+            bigs.push_back(input[i]);
+            smalls.push_back(input[i + 1]);
+        }
+        else
+        {
+            bigs.push_back(input[i + 1]);
+            smalls.push_back(input[i]);
         }
     }
-    
-    std::vector<int> sorted;
-    for (int i = 0; i < n; i++)
-    {
-        int key = vector[i];
-        int pos = binarySearch(sorted, 0, sorted.size(), key);
-        sorted.insert(sorted.begin() + pos, key);
-    }
-    
-    vector = sorted;
+    if (input.size() % 2 != 0)
+        leftover = input.back();
 }
 
-void    sortVector(std::vector<int> &numbers)
+size_t  binarySearchPosition(const std::vector<int> &vector, int value, size_t limit)
 {
-    mergeInsertionSort(numbers);
+    size_t low = 0;
+    size_t high = limit;
+
+    while (low < high)
+    {
+        size_t mid = (low + high) / 2;
+        if (vector[mid] < value)
+            low = mid + 1;
+        else
+            high = mid;
+    }
+    return (low);
 }
 
-std::vector<int> jacobsthalSequence(int n)
+void    binaryInsert(std::vector<int> &vector, int value, size_t limit)
 {
-    std::vector<int> sequence(n);
-    sequence[0] = 0;
-    if (n > 1)
-    {
-        sequence[1] = 1;
-        for (int i = 2; i < n; i++)
-            sequence[i] = sequence[i - 1] + 2 * sequence[i - 2];
+    size_t pos = binarySearchPosition(vector, value, limit);
+    vector.insert(vector.begin() + pos, value);
+}
 
+std::vector<int>    generateJacobsthal(int n)
+{
+    std::vector<int> seq;
+
+    if (n >= 0)
+        seq.push_back(0);
+    if (n >= 1)
+        seq.push_back(1);
+
+    while (true)
+    {
+        int next = seq.back() + 2 * seq[seq.size() - 2];
+        if (next > n)
+            break;
+        seq.push_back(next);
     }
-    return (sequence);
+    return (seq);
+}
+
+std::vector<size_t> prepareInsertionOrder(size_t n)
+{
+    std::vector<size_t> order;
+    if (n == 0)
+        return order;
+
+    std::vector<int> jacob = generateJacobsthal(n);
+    order.push_back(0);
+
+    for (size_t g = 2; g < jacob.size(); ++g)
+    {
+        size_t start = jacob[g - 1];
+        size_t end = jacob[g];
+        for (size_t j = end; j > start; --j)
+        {
+            if (j - 1 < n)
+                order.push_back(j - 1);
+        }
+    }
+
+    size_t last = jacob.empty() ? 1 : jacob.back();
+    while (last < n)
+    {
+        order.push_back(last);
+        last++;
+    }
+
+    return (order);
+}
+
+void    insertFirstSmall(std::vector<int> &S, const std::vector<int> &smalls)
+{
+    if (!smalls.empty())
+    {
+        size_t pos = binarySearchPosition(S, smalls[0], S.size());
+        S.insert(S.begin() + pos, smalls[0]);
+    }
+}
+
+void    analyzePairing(const std::vector<int> &smalls, std::vector<int> &remaining, int leftover)
+{
+    for (size_t i = 1; i < smalls.size(); ++i)
+        remaining.push_back(smalls[i]);
+    if (leftover != -1)
+        remaining.push_back(leftover);
+}
+
+std::vector<int>    mergeInsertionSort(std::vector<int> input)
+{
+    if (input.size() <= 1)
+        return input;
+
+    std::vector<int> bigs, smalls;
+    int leftover;
+    pairAndCompare(input, bigs, smalls, leftover);
+
+    std::vector<int> S = mergeInsertionSort(bigs);
+    insertFirstSmall(S, smalls);
+
+    std::vector<int> remaining;
+    analyzePairing(smalls, remaining, leftover);
+
+    std::vector<size_t> order = prepareInsertionOrder(remaining.size());
+    for (size_t i = 0; i < order.size(); ++i)
+    {
+        if (order[i] >= remaining.size())
+            continue;
+
+        int val = remaining[order[i]];
+        size_t pos = binarySearchPosition(S, val, S.size());
+        S.insert(S.begin() + pos, val);
+    }
+
+    return (S);
+}
+
+void    printVectorBefore(const std::vector<int> &vector)
+{
+    std::cout << "Before: ";
+    for (size_t i = 0; i < vector.size(); i++)
+        std::cout << vector[i] << " ";
+    std::cout << std::endl;
+}
+
+void    printVectorAfter(const std::vector<int> &vector)
+{
+    std::cout << "After: ";
+    for (size_t i = 0; i < vector.size(); i++)
+        std::cout << vector[i] << " ";
+    std::cout << std::endl;
+}
+
+long long   getTimeMicroseconds()
+{
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    return (long long)(tv.tv_sec) * 1000000 + tv.tv_usec;
+}
+
+void    printTiming(long long start, long long end, size_t size)
+{
+    std::cout << std::fixed << std::setprecision(5);
+    std::cout << "Time to process a range of " << size << "  elements with std::vector : " << static_cast<double>(end - start) << " us" << std::endl;
 }
 
 int main(int ac, char **av)
 {
     if (ac < 2)
     {
-        std::cerr << "Error: Please provide numbers as arguments." << std::endl;
-        return (1);
+        std::cerr << "Usage: " << av[0] << " <numbers...>" << std::endl;
+        return 1;
     }
 
-    std::string input;
-    for (int i = 1; i < ac; i++)
-        input += av[i] + std::string(" ");
+    long long start;
+    long long end;
+    std::vector<int> input;
+    std::vector<int> sorted;
 
-    std::vector<int> numbers;
-
-    addToVector(input, numbers);
-
-    printVectorBefore(numbers);
-
-    clock_t start = clock();
-
-    sortVector(numbers);
-
-    clock_t end = clock();
-
-    printVectorAfter(numbers);
-
-    printTiming(start, end, numbers.size());
-
-    int n = 10;
-    std::vector<int> jSeq = jacobsthalSequence(n);
-    std::cout << "Jacobsthal Sequence up to " << n << " terms: ";
-    for (int i = 0; i < n; i++)
-        std::cout << jSeq[i] << " ";
-    std::cout << std::endl;
+    input = parseInput(ac, av);
+    printVectorBefore(input);
+    start = getTimeMicroseconds();
+    sorted = mergeInsertionSort(input);
+    end = getTimeMicroseconds();
+    printVectorAfter(sorted);
+    printTiming(start, end, input.size());
 
     return (0);
 }
