@@ -18,10 +18,11 @@ void    printContainers(const T &container, std::string str)
         std::cout << container[i] << " ";
     std::cout << std::endl;
 }
+
 template<typename T>
 T   insertOrder(int n)
 {
-    T jacob;
+    T   jacob;
     jacob.push_back(0);
     jacob.push_back(1);
 
@@ -40,8 +41,5 @@ T   insertOrder(int n)
     }
     return (jacob);
 }
-
-void    sortVector(std::vector<int> &input);
-void    sortDeque(std::deque<int> &input);
 
 #endif
