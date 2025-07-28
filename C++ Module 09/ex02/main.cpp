@@ -6,158 +6,74 @@
 #include <climits>
 #include <iomanip>
 
-std::vector<int>    parseInput(int ac, char **av)
+std::vector<int>    insertOrder(int n)
 {
-    std::vector<int> result;
-    for (int i = 1; i < ac; ++i)
+    std::vector<int>    jacob;
+    jacob.push_back(0);
+    jacob.push_back(1);
+
+    int prev = 1;
+    int next = 3;
+    while (static_cast<int>(jacob.size()) < n)
     {
-        char *end;
-        long num = std::strtol(av[i], &end, 10);
-        if (*end != '\0' || num > INT_MAX || num < INT_MIN)
+        for (int i = (next >= n ? n - 1 : next); i > prev; --i)
         {
-            std::cerr << "Error: Invalid input -> " << av[i] << std::endl;
-            std::exit(1);
+            jacob.push_back(i);
+            if (static_cast<int>(jacob.size()) == n)
+                break;
         }
-        bool isDuplicate = (std::find(result.begin(), result.end(), num) != result.end());
-        if (isDuplicate)
-        {
-            std::cerr << "Error: Duplicate number found: " << num << std::endl;
-            exit(1);
-        }
-        result.push_back(static_cast<int>(num));
+        prev = next;
+        next = next + 2 * prev;
     }
-    return (result);
+    return (jacob);
 }
 
-void    pairAndCompare(const std::vector<int> &input, std::vector<int> &bigs, std::vector<int> &smalls, int &leftover)
+void    sortVector(std::vector<int> &input)
 {
-    leftover = -1;
-    for (size_t i = 0; i + 1 < input.size(); i += 2)
+    if (input.size() <= 1)
+        return;
+
+    std::vector<int>    bigs;
+    std::vector<int>    smls;
+
+    for (size_t i = 0; i < input.size() - 1; i += 2)
     {
         if (input[i] > input[i + 1])
         {
             bigs.push_back(input[i]);
-            smalls.push_back(input[i + 1]);
+            smls.push_back(input[i + 1]);
         }
         else
         {
             bigs.push_back(input[i + 1]);
-            smalls.push_back(input[i]);
+            smls.push_back(input[i]);
         }
     }
-    if (input.size() % 2 != 0)
-        leftover = input.back();
-}
 
-size_t  binarySearchPosition(const std::vector<int> &vector, int value, size_t limit)
-{
-    size_t low = 0;
-    size_t high = limit;
+    int leftover = (input.size() % 2 != 0) ? input.back() : -1;
 
-    while (low < high)
+    sortVector(bigs);
+
+    std::vector<int>    sorted = bigs;
+
+    if (!smls.empty())
     {
-        size_t mid = (low + high) / 2;
-        if (vector[mid] < value)
-            low = mid + 1;
-        else
-            high = mid;
-    }
-    return (low);
-}
-
-std::vector<int>    generateJacobsthal(int n)
-{
-    std::vector<int> seq;
-
-    if (n >= 0)
-        seq.push_back(0);
-    if (n >= 1)
-        seq.push_back(1);
-
-    while (true)
-    {
-        int next = seq.back() + 2 * seq[seq.size() - 2];
-        if (next > n)
-            break;
-        seq.push_back(next);
-    }
-    return (seq);
-}
-
-std::vector<size_t> prepareInsertionOrder(size_t n)
-{
-    std::vector<size_t> order;
-    if (n == 0)
-        return order;
-
-    std::vector<int> jacob = generateJacobsthal(n);
-    order.push_back(0);
-
-    for (size_t g = 2; g < jacob.size(); ++g)
-    {
-        size_t start = jacob[g - 1];
-        size_t end = jacob[g];
-        for (size_t j = end; j > start; --j)
+        std::vector<int>    indeces = insertOrder(smls.size());
+        for (size_t i = 0; i < smls.size(); ++i)
         {
-            if (j - 1 < n)
-                order.push_back(j - 1);
+            int idx = indeces[i];
+            std::vector<int>::iterator  pos = std::lower_bound(sorted.begin(), sorted.end(), smls[idx]);
+            sorted.insert(pos, smls[idx]);
         }
     }
 
-    size_t last = jacob.empty() ? 1 : jacob.back();
-    while (last < n)
-    {
-        order.push_back(last);
-        last++;
-    }
-
-    return (order);
-}
-
-void    insertFirstSmall(std::vector<int> &S, const std::vector<int> &smalls)
-{
-    if (!smalls.empty())
-    {
-        size_t pos = binarySearchPosition(S, smalls[0], S.size());
-        S.insert(S.begin() + pos, smalls[0]);
-    }
-}
-
-void    analyzePairing(const std::vector<int> &smalls, std::vector<int> &remaining, int leftover)
-{
-    for (size_t i = 1; i < smalls.size(); ++i)
-        remaining.push_back(smalls[i]);
     if (leftover != -1)
-        remaining.push_back(leftover);
-}
-
-std::vector<int>    mergeInsertionSort(std::vector<int> input)
-{
-    if (input.size() <= 1)
-        return input;
-
-    std::vector<int> bigs, smalls;
-    int leftover;
-    pairAndCompare(input, bigs, smalls, leftover);
-
-    std::vector<int> S = mergeInsertionSort(bigs);
-    insertFirstSmall(S, smalls);
-
-    std::vector<int> remaining;
-    analyzePairing(smalls, remaining, leftover);
-
-    std::vector<size_t> order = prepareInsertionOrder(remaining.size());
-    for (size_t i = 0; i < order.size(); ++i)
     {
-        if (order[i] >= remaining.size())
-            continue;
-
-        int val = remaining[order[i]];
-        size_t pos = binarySearchPosition(S, val, S.size());
-        S.insert(S.begin() + pos, val);
+        std::vector<int>::iterator  pos = std::lower_bound(sorted.begin(), sorted.end(), leftover);
+        sorted.insert(pos, leftover);
     }
 
-    return (S);
+    input = sorted;
 }
 
 void    printVectorBefore(const std::vector<int> &vector)
@@ -170,7 +86,7 @@ void    printVectorBefore(const std::vector<int> &vector)
 
 void    printVectorAfter(const std::vector<int> &vector)
 {
-    std::cout << "After: ";
+    std::cout << "After:  ";
     for (size_t i = 0; i < vector.size(); i++)
         std::cout << vector[i] << " ";
     std::cout << std::endl;
@@ -178,9 +94,10 @@ void    printVectorAfter(const std::vector<int> &vector)
 
 long long   getTimeMicroseconds()
 {
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return (long long)(tv.tv_sec) * 1000000 + tv.tv_usec;
+    struct timeval time;
+    
+    gettimeofday(&time, NULL);
+    return (long long)(time.tv_sec) * 1000000 + time.tv_usec;
 }
 
 void    printTiming(long long start, long long end, size_t size)
@@ -189,26 +106,51 @@ void    printTiming(long long start, long long end, size_t size)
     std::cout << "Time to process a range of " << size << "  elements with std::vector : " << static_cast<double>(end - start) << " us" << std::endl;
 }
 
+std::vector<int>    parseInput(int &ac, char **av)
+{
+    std::vector<int>    result;
+    for (int i = 1; i < ac; ++i)
+    {
+        char    *end;
+        long    num = std::strtol(av[i], &end, 10);
+        if (*end != '\0' || num < 0 || num > INT_MAX)
+            throw std::runtime_error("Error: Invalid input -> " + static_cast<std::string>(av[i]));
+
+        bool isDuplicate = (std::find(result.begin(), result.end(), num) != result.end());
+        if (isDuplicate)
+            throw std::runtime_error("Error: Duplicate number found: " + static_cast<std::string>(av[i]));
+
+        result.push_back(static_cast<int>(num));
+    }
+    return (result);
+}
+
 int main(int ac, char **av)
 {
     if (ac < 2)
     {
-        std::cerr << "Usage: " << av[0] << " <numbers...>" << std::endl;
-        return 1;
+        std::cerr << "Usage: ./PmergeMe <numbers...>" << std::endl;
+        return (1);
     }
 
-    long long start;
-    long long end;
-    std::vector<int> input;
-    std::vector<int> sorted;
+    try
+    {
+        std::vector<int>    input;
+        long long   timeStart;
+        long long   timeEnd;
 
-    input = parseInput(ac, av);
-    printVectorBefore(input);
-    start = getTimeMicroseconds();
-    sorted = mergeInsertionSort(input);
-    end = getTimeMicroseconds();
-    printVectorAfter(sorted);
-    printTiming(start, end, input.size());
+        input = parseInput(ac, av);
+        printVectorBefore(input);
+        timeStart = getTimeMicroseconds();
+        sortVector(input);
+        timeEnd = getTimeMicroseconds();
+        printVectorAfter(input);
+        printTiming(timeStart, timeEnd, input.size());
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 
     return (0);
 }
