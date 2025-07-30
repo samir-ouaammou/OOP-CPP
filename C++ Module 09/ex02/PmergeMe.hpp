@@ -42,4 +42,10 @@ T   insertOrder(int n)
     return (jacob);
 }
 
+long long   getTimeMicroseconds();
+void        sortDeque(std::deque<int> &input);
+void        sortVector(std::vector<int> &input);
+void        printTiming(long long start, long long end, size_t size, std::string name);
+void        parseInput(int &ac, char **av, std::vector<int> &vector, std::deque<int> &deque);
+
 #endif
