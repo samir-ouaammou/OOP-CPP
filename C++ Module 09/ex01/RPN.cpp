@@ -15,7 +15,7 @@ void    checkInput(std::string &input)
 
     for (size_t i = 0; i < input.length(); i++)
     {
-        if (!isdigit(input[i]) && !isspace(input[i]) && !isOperator(input[i]) && input[i] != '.')
+        if (!isdigit(input[i]) && !isspace(input[i]) && !isOperator(input[i]))
         {
             std::cerr << "Error: invalid character in input: '" << input[i] << "'" << std::endl;
             exit(1);
