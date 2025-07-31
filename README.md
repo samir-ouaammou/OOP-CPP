@@ -227,8 +227,8 @@ This repository documents my understanding and progress through **C++ Modules 00
 * Writing idiomatic, high-level C++.
 * Leveraging generic programming and composability.
 * Building expressive, readable, and maintainable code.
-
-* 👉 To explore the **Merge-Insertion Sort (Ford-Johnson Algorithm)** built as part of this module, check out the implementation here: [Ford-Johnson Algorithm Repo](https://github.com/samir-ouaammou/Ford-Johnson-Algorithm)
+  
+👉 To explore the **Merge-Insertion Sort (Ford-Johnson Algorithm)** built as part of this module, check out the implementation here: <a href="https://github.com/samir-ouaammou/Ford-Johnson-Algorithm" target="_blank">Ford-Johnson Algorithm Repo</a>
 
 ---
 
