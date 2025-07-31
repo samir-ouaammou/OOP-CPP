@@ -238,8 +238,8 @@ Check the `/exXX/` folders for my implementations.
 
 ---
 
-> 📨 Feel free to reach out, contribute, or ask me anything!
-
-🧑‍💻 **Author**: [Samir Ouaammou](https://github.com/Samir-Ouaammou)
-🎓 **1337 School / 42 Network**
-🚀 Passionate about C++, Linux, and clean code!
+> 📨 Feel free to reach out, contribute, or ask me anything!   
+ 
+🧑‍💻 **Author**: [Samir Ouaammou](https://github.com/Samir-Ouaammou)  
+🎓 **1337 School / 42 Network**   
+🚀 Passionate about C++, Linux, and clean code!  
