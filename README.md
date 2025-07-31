@@ -197,9 +197,9 @@ This repository documents my understanding and progress through **C++ Modules 00
 
 #### 🔎 Topics Covered:
 
-* **Templated Containers**: `vector`, `list`, `map`, etc.
+* **Templated Containers**: `map`, `stack`, `vector`, `deque`,  `list`, etc.
 * **Iterators**: Objects for traversing containers.
-* **STL Algorithms**: `sort`, `find`, `count`, `for_each`, etc.
+* **STL Algorithms**: `sort`, `find`, `lower_bound` `count`, `for_each`, etc.
 
 #### ✅ Skills Acquired:
 
@@ -216,9 +216,9 @@ This repository documents my understanding and progress through **C++ Modules 00
 
 #### 🔎 Topics Covered:
 
-* **Containers**: `map`, `stack`, `vector`, `deque`, etc.
+* **Containers**: `map`, `stack`, `vector`, `deque`,  `list`, etc.
 * **Iterators**: `begin()`, `end()`, `rbegin()`, `rend()`
-* **Algorithms**: `transform`, `accumulate`, `remove_if`, etc.
+* **Algorithms**: `sort`, `find`, `lower_bound` `count`, `for_each`, etc.
 * **Utilities**: `pair`, `function`, `bind`, `tuple`
 
 #### ✅ Skills Acquired:
@@ -227,6 +227,8 @@ This repository documents my understanding and progress through **C++ Modules 00
 * Writing idiomatic, high-level C++.
 * Leveraging generic programming and composability.
 * Building expressive, readable, and maintainable code.
+
+* 👉 To explore the **Merge-Insertion Sort (Ford-Johnson Algorithm)** built as part of this module, check out the implementation here: [Ford-Johnson Algorithm Repo](https://github.com/samir-ouaammou/Ford-Johnson-Algorithm)
 
 ---
 
